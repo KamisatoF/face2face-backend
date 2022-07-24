@@ -8,6 +8,7 @@ class Face2faceBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
