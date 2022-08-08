@@ -35,4 +35,8 @@ public class ServicoService {
 		}
 	}
 
+	public Object findAll() {
+		return repo.findAll();
+	}
+
 }

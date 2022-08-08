@@ -26,6 +26,11 @@ public class ServicoResources {
 		return ResponseEntity.ok().body(service.find(id));
 	}
 	
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		return ResponseEntity.ok().body(service.findAll());
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody Servico obj) {
 		obj = service.insert(obj);
