@@ -10,5 +10,6 @@ import br.com.face2face.domain.Servico;
 @Repository
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
-	public List<Servico> findAllOrderByIdAsc();
+	public List<Servico> findAllByOrderByIdAsc();
+	
 }
