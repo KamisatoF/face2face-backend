@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import br.com.face2face.domain.Servico;
 import br.com.face2face.service.ServicoService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/servicos")
 public class ServicoResources {
 	
