@@ -53,6 +53,12 @@ public class ServicoResources {
 		service.delete(id);		
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteAll() {				
+		service.deleteAll();	
+		return ResponseEntity.noContent().build();
+	}
 
 
 }

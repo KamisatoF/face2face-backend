@@ -38,5 +38,9 @@ public class ServicoService {
 	public Object findAll() {
 		return repo.findAll();
 	}
+	
+	public void deleteAll() {
+		repo.deleteAll();
+	}
 
 }
