@@ -10,7 +10,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000/", "https://puc-face2face-frontend.herokuapp.com/")
+            .allowedOrigins("http://localhost:3000/", "https://puc-face2face-frontend.herokuapp.com/", "http://puc-face2face-frontend.herokuapp.com:80/")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
     }
 }
