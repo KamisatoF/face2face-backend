@@ -36,7 +36,7 @@ public class ServicoService {
 	}
 
 	public Object findAll() {
-		return repo.findAllOrderByIdAsc();
+		return repo.findAllByOrderByIdAsc();
 	}
 	
 	public void deleteAll() {
