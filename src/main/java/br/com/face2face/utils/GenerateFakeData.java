@@ -28,6 +28,7 @@ public class GenerateFakeData {
 		list.add(new Servico(null, "Água gelada", "Água gelada dísponivel para até 10 pessoas", new  BigDecimal("50.00")));
 		list.add(new Servico(null, "Material de escritório", "10 blocos para anotação e canetas", new BigDecimal("100.00")));
 		list.add(new Servico(null, "Café", "Café dísponivel durante todo o tempo da reunião.", new BigDecimal("70.00")));
+		list.add(new Servico(null, "Suporte Audiovisual", "Um especialista para ajudar com sua apresentação, ajustando a projeção, som, entre outros items.", new BigDecimal("70.00")));
 
 		repo.deleteAll();
 		repo.saveAll(list);
