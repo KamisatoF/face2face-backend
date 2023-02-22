@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import br.com.face2face.domain.Usuario;
+import br.com.face2face.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,22 @@ public class GenerateFakeData {
 	@Autowired
 	ServicoRepository repo;
 
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
 	@PostConstruct
 	public void setUp() {
+		createFakeServico();
+		List<Usuario> list = new ArrayList<>();
+		list.add(new Usuario(null, "Fabio Kamisato", "35671367808", "fabiokamisato@gmail.com", "(11) 97579-2501", "abc123", true));
+		list.add(new Usuario(null, "Thais Cavenago", "44266663846", "thaiscavenago@gmail.com", "(14) 97579-2502", "abc123", true));
+
+		usuarioRepository.deleteAll();
+		usuarioRepository.saveAll(list);
+
+	}
+
+	private void createFakeServico() {
 		List<Servico> list = new ArrayList<>();
 		list.add(new Servico(null, "Brunch completo",
 				"O brunch completo serve até 10 pessoaos com frios e queijos, diferentes tipos de pães, patês e geleias, iogurte, bolos, pão de queijo e frutas.",
