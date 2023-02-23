@@ -2,6 +2,7 @@ package br.com.face2face.resources;
 
 import java.net.URI;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +19,7 @@ import br.com.face2face.service.ServicoService;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/servicos")
+@Slf4j
 public class ServicoResources {
 	
 	@Autowired
@@ -49,8 +51,8 @@ public class ServicoResources {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Long id) {				
-		service.delete(id);		
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
