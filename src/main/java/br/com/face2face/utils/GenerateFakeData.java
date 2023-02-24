@@ -27,8 +27,8 @@ public class GenerateFakeData {
 	public void setUp() {
 		createFakeServico();
 		List<Usuario> list = new ArrayList<>();
-		list.add(new Usuario(null, "Fabio Kamisato", "35671367808", "fabiokamisato@gmail.com", "(11) 97579-2501", "abc123", true));
-		list.add(new Usuario(null, "Thais Cavenago", "44266663846", "thaiscavenago@gmail.com", "(14) 97579-2502", "abc123", true));
+		list.add(new Usuario(null, "Fabio Kamisato", "35XXXXXXX08", "fabiokamisato@gmail.com", "(11) 97579-2503", "abc123", false, null));
+		list.add(new Usuario(null, "Thais Cavenago", "44XXXXXXX46", "thaiscavenago@gmail.com", "(14) 97579-2502", "abc123", true, "on"));
 
 		usuarioRepository.deleteAll();
 		usuarioRepository.saveAll(list);

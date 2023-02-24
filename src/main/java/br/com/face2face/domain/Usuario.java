@@ -3,10 +3,8 @@ package br.com.face2face.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -25,5 +23,6 @@ public class Usuario implements Serializable {
     private String telefone;
     private String senha;
     private Boolean recebeInformacoesEmail;
-
+    @Transient
+    private String recebeInformacoesEmailString;
 }
