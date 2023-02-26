@@ -39,7 +39,7 @@ public class CadastroService {
             throw new RuntimeException("Erro ao excluir: " + id);
         }
     }
-
+    
     public void deleteAll() {
         repo.deleteAll();
     }
