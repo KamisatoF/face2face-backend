@@ -51,5 +51,10 @@ public class CadastroResource {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public ResponseEntity<?> findAll() {
+
+        return ResponseEntity.ok().body(cadastroService.findAll());
+    }
 
 }

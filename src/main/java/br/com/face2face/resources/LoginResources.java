@@ -15,15 +15,15 @@ import java.net.URI;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/login")
+@RequestMapping("/loginOld")
 @Slf4j
 public class LoginResources {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> authenticate(@RequestBody Usuario obj) {
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> auth(@RequestBody Usuario obj) {
 		Usuario usuario = usuarioService.auth(obj.getEmail(), obj.getSenha());
 
 		if (usuario!=null)

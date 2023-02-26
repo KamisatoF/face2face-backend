@@ -1,5 +1,6 @@
 package br.com.face2face.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class Usuario implements Serializable {
     private String cpf;
     private String email;
     private String telefone;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private Boolean recebeInformacoesEmail;
     @Transient
