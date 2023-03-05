@@ -3,10 +3,13 @@ package br.com.face2face.service;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CadastroService {
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UsuarioRepository repo;
@@ -16,13 +19,14 @@ public class CadastroService {
     }
 
     public Usuario insert(Usuario usuario) {
-        normalizeUsuario(usuario);
+        normalize(usuario);
         usuario.setId(null);
 
         return repo.save(usuario);
     }
 
-    private void normalizeUsuario(Usuario usuario) {
+    private void normalize(Usuario usuario) {
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         usuario.setRecebeInformacoesEmail(usuario.getRecebeInformacoesEmailString() != null);
     }
 
@@ -39,7 +43,7 @@ public class CadastroService {
             throw new RuntimeException("Erro ao excluir: " + id);
         }
     }
-    
+
     public void deleteAll() {
         repo.deleteAll();
     }

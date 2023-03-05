@@ -12,11 +12,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
-public class JWTConfiguration extends WebSecurityConfigurerAdapter {
+public class JwtConfiguration extends WebSecurityConfigurerAdapter {
 
     private final DetalheUsuarioServiceImpl usuarioService;
 
-    public JWTConfiguration(DetalheUsuarioServiceImpl usuarioService) {
+    public JwtConfiguration(DetalheUsuarioServiceImpl usuarioService) {
         this.usuarioService = usuarioService;
     }
 
@@ -29,7 +29,7 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/login**").permitAll()
-                .antMatchers("/cadastro**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/cadastro/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
