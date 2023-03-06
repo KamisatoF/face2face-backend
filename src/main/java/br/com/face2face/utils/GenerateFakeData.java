@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +32,9 @@ public class GenerateFakeData {
 
     private void createFakeUser() {
         List<Usuario> list = new ArrayList<>();
-        list.add(new Usuario(null, "Fabio Kamisato", "35346199519", "fabiokamisato@gmail.com", "(11) 97579-2503", encoder.encode("Blue#99"), false, null));
-        list.add(new Usuario(null, "Thais Cavenago", "45283775860", "thaiscavenago@gmail.com", "(14) 97579-2502", encoder.encode("Blue#00"), true, "on"));
-        list.add(new Usuario(null, "teste", "15283771860", "a@a", "(14) 97579-2502", encoder.encode("a"), true, "on"));
+        list.add(new Usuario(null, "Fabio Kamisato", "35346199519", "fabiokamisato@gmail.com", "11975792503", encoder.encode("Blue#99"), false, null));
+        list.add(new Usuario(null, "Thais Cavenago", "45283775860", "thaiscavenago@gmail.com", "14975792502", encoder.encode("Blue#00"), true, "on"));
+        list.add(new Usuario(null, "teste", "15283771860", "a@a", "14975792502", encoder.encode("a"), true, "on"));
 
         usuarioRepository.deleteAll();
         usuarioRepository.saveAll(list);
