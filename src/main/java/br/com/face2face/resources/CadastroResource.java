@@ -1,14 +1,12 @@
 package br.com.face2face.resources;
 
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.service.CadastroService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -26,10 +24,10 @@ public class CadastroResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> insert(@RequestBody Usuario obj) {
-        obj = cadastroService.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        ServiceResponse resp = cadastroService.insert(obj);
+        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getErrorMessage());
 
-        return ResponseEntity.created(uri).build();
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
