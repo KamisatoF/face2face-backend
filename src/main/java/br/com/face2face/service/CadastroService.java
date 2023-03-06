@@ -28,7 +28,7 @@ public class CadastroService {
 
         usuario.setId(null);
         Usuario resp = repo.save(usuario);
-        return new ServiceResponse(HttpStatus.OK, null, resp);
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", resp);
     }
 
     private void normalize(Usuario usuario) {

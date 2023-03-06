@@ -25,7 +25,7 @@ public class CadastroResource {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> insert(@RequestBody Usuario obj) {
         ServiceResponse resp = cadastroService.insert(obj);
-        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getErrorMessage());
+        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getMessage());
 
         return responseEntity;
     }
