@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "servico")
-public class Servico implements Serializable {
+@Table(name = "equipamento")
+public class Equipamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,6 @@ public class Servico implements Serializable {
     private Usuario usuario;
     private String descricao;
     private String detalhes;
-    private BigDecimal preco;
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long userid;

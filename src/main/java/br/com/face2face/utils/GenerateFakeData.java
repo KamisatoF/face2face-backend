@@ -1,7 +1,9 @@
 package br.com.face2face.utils;
 
+import br.com.face2face.domain.Equipamento;
 import br.com.face2face.domain.Servico;
 import br.com.face2face.domain.Usuario;
+import br.com.face2face.repository.EquipamentoRepository;
 import br.com.face2face.repository.ServicoRepository;
 import br.com.face2face.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +21,36 @@ public class GenerateFakeData {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
-    ServicoRepository repo;
+    ServicoRepository servicoRepository;
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    EquipamentoRepository equipamentoRepository;
 
     @PostConstruct
     public void setUp() {
         clearData();
         List<Usuario> userList = createFakeUser();
         createFakeServico(userList);
+        createFakeEquipamento(userList);
+    }
+
+    private void createFakeEquipamento(List<Usuario> userList) {
+        List<Equipamento> l = new ArrayList<>();
+        userList.forEach(z -> {
+            l.add(new Equipamento(null, z, "TV", "50 polegadas, com conectividade por HDMI", 1l));
+            l.add(new Equipamento(null, z, "Ar condicionado", "Split, 8 mil BTUs", 1l));
+            l.add(new Equipamento(null, z, "Telefone", "Especifico para confêrencias, com microfone multidirecional", 1l));
+        });
+
+        equipamentoRepository.saveAll(l);
     }
 
     private void clearData() {
-        repo.deleteAll();
+        servicoRepository.deleteAll();
+        equipamentoRepository.deleteAll();
         usuarioRepository.deleteAll();
     }
 
@@ -57,7 +75,7 @@ public class GenerateFakeData {
             list.add(new Servico(null, user, "Café", "Café dísponivel durante todo o tempo da reunião.", new BigDecimal("70.00"), 1l));
             list.add(new Servico(null, user, "Suporte Audiovisual", "Um especialista para ajudar com sua apresentação, ajustando a projeção, som, entre outros items.", new BigDecimal("70.00"), 1l));
 
-            repo.saveAll(list);
+            servicoRepository.saveAll(list);
         });
     }
 }
