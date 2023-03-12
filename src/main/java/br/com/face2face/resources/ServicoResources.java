@@ -38,22 +38,21 @@ public class ServicoResources {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody Servico obj) {
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		
-		return ResponseEntity.created(uri).build();
+
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody Servico obj, @PathVariable Long id) {
 		obj.setId(id);
-		obj = service.update(obj);		
-		return ResponseEntity.noContent().build();
+		obj = service.update(obj);
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)

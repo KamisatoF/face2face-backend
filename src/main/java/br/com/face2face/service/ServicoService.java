@@ -22,12 +22,18 @@ public class ServicoService {
 	}
 	
 	public Servico insert(Servico servico) {
+		Usuario us = new Usuario();
+		us.setId(servico.getUserid());
+		servico.setUsuario(us);
 		servico.setId(null);
 		return repo.save(servico);
 	}
 	
 	public Servico update(Servico servico) {
 		find(servico.getId());
+		Usuario us = new Usuario();
+		us.setId(servico.getUserid());
+		servico.setUsuario(us);
 		return repo.save(servico);
 	}
 	

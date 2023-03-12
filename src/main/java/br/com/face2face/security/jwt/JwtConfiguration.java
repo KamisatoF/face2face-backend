@@ -29,6 +29,7 @@ public class JwtConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/login/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/cadastro/**").permitAll()
@@ -48,6 +49,16 @@ public class JwtConfiguration extends WebSecurityConfigurerAdapter {
 
         return source;
     }
+
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+//        configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 
     @Bean
     public BCryptPasswordEncoder getPasswordEncoder() {

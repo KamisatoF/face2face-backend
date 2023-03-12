@@ -28,4 +28,6 @@ public class Servico implements Serializable {
 	private String descricao;
 	private String detalhes;
 	private BigDecimal preco;
+	@Transient
+	private Long userid;
 }
