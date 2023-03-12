@@ -1,10 +1,13 @@
 package br.com.face2face.service;
 
+import br.com.face2face.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.face2face.domain.Servico;
 import br.com.face2face.repository.ServicoRepository;
+
+import java.util.List;
 
 @Service
 public class ServicoService {
@@ -12,8 +15,10 @@ public class ServicoService {
 	@Autowired
 	private ServicoRepository repo;
 	
-	public Servico find(Long id) {
-		return repo.findById(id).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+	public List<Servico> find(Long id) {
+		Usuario usuario = new Usuario();
+		usuario.setId(id);
+		return repo.findByUsuario(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
 	}
 	
 	public Servico insert(Servico servico) {

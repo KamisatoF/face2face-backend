@@ -50,12 +50,17 @@ public class CadastroService {
     private void normalize(Usuario usuario) {
         usuario.setCpf(NormalizeUtils.onlyNumbers(usuario.getCpf()));
         usuario.setTelefone(NormalizeUtils.onlyNumbers(usuario.getTelefone()));
-        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        usuario.setSenha(usuario.getSenha() != null ? encoder.encode(usuario.getSenha()) : null);
         usuario.setRecebeInformacoesEmail(usuario.getRecebeInformacoesEmailString() != null);
     }
 
     public Usuario update(Usuario usuario) {
-        find(usuario.getId());
+        Usuario db = find(usuario.getId());
+        normalize(usuario);
+        if (usuario.getSenha() == null) {
+            usuario.setSenha(db.getSenha());
+        }
+
         return repo.save(usuario);
     }
 
