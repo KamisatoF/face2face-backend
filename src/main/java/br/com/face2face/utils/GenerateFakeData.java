@@ -1,8 +1,10 @@
 package br.com.face2face.utils;
 
+import br.com.face2face.domain.ContaBancaria;
 import br.com.face2face.domain.Equipamento;
 import br.com.face2face.domain.Servico;
 import br.com.face2face.domain.Usuario;
+import br.com.face2face.repository.ContaBancariaRepository;
 import br.com.face2face.repository.EquipamentoRepository;
 import br.com.face2face.repository.ServicoRepository;
 import br.com.face2face.repository.UsuarioRepository;
@@ -27,6 +29,9 @@ public class GenerateFakeData {
     UsuarioRepository usuarioRepository;
 
     @Autowired
+    ContaBancariaRepository contaBancariaRepository;
+
+    @Autowired
     EquipamentoRepository equipamentoRepository;
 
     @PostConstruct
@@ -35,6 +40,18 @@ public class GenerateFakeData {
         List<Usuario> userList = createFakeUser();
         createFakeServico(userList);
         createFakeEquipamento(userList);
+        createFakeContaBancaria(userList);
+    }
+
+    private void createFakeContaBancaria(List<Usuario> userList) {
+        List<ContaBancaria> cb = new ArrayList<>();
+        userList.forEach(z -> {
+            cb.add(new ContaBancaria(null, z, "237", "71", "14160", "2", 1l));
+            cb.add(new ContaBancaria(null, z, "341", "201", "19530", "7", 1l));
+            cb.add(new ContaBancaria(null, z, "104", "119", "78021", "1", 1l));
+        });
+
+        contaBancariaRepository.saveAll(cb);
     }
 
     private void createFakeEquipamento(List<Usuario> userList) {
@@ -51,6 +68,7 @@ public class GenerateFakeData {
     private void clearData() {
         servicoRepository.deleteAll();
         equipamentoRepository.deleteAll();
+        contaBancariaRepository.deleteAll();
         usuarioRepository.deleteAll();
     }
 
