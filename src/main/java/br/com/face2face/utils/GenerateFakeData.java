@@ -11,13 +11,12 @@ import br.com.face2face.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class GenerateFakeData {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -47,8 +46,8 @@ public class GenerateFakeData {
         List<ContaBancaria> cb = new ArrayList<>();
         userList.forEach(z -> {
             cb.add(new ContaBancaria(null, z, "237", "71", "14160", "2", 1l));
-            cb.add(new ContaBancaria(null, z, "341", "201", "19530", "7", 1l));
-            cb.add(new ContaBancaria(null, z, "104", "119", "78021", "1", 1l));
+            cb.add(new ContaBancaria(null, z, "336", "201", "19530", "7", 1l));
+            cb.add(new ContaBancaria(null, z, "341", "119", "78021", "1", 1l));
         });
 
         contaBancariaRepository.saveAll(cb);
