@@ -17,7 +17,7 @@ public class ServicoResources {
     private ServicoService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable String id) {
+    public ResponseEntity<?> find(@PathVariable("id") String id) {
         return ResponseEntity.ok().body(service.find(id));
     }
 
