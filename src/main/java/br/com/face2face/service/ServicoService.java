@@ -22,7 +22,7 @@ public class ServicoService {
 
     public List<Servico> find(Long id) {
         Usuario usuario = new Usuario();
-        usuario.setId(Long.valueOf(id));
+        usuario.setId(id);
         return repo.findByUsuario(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
     }
 
