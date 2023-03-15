@@ -30,9 +30,10 @@ public class Locacao implements Serializable {
     private Usuario usuario;
 
     private String espaco;
-    private Date dataInicioReserva;
 
-    private Date dataFimReserva;
+    private Date dataInicio;
+
+    private Date dataFim;
 
     private BigDecimal valorTaxas;
 

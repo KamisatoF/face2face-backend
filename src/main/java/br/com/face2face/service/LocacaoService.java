@@ -1,10 +1,8 @@
 package br.com.face2face.service;
 
 import br.com.face2face.domain.Locacao;
-import br.com.face2face.domain.Servico;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.repository.LocacaoRepository;
-import br.com.face2face.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,7 @@ public class LocacaoService {
     public List<Locacao> find(Long id) {
         Usuario usuario = new Usuario();
         usuario.setId(id);
-        return repo.findByUsuarioOrderByDataInicioReserva(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+        return repo.findByUsuarioOrderByDataInicio(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
     }
 
     public Locacao insert(Locacao locacao) {

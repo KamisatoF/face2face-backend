@@ -1,6 +1,5 @@
 package br.com.face2face.repository;
 
-import br.com.face2face.domain.Equipamento;
 import br.com.face2face.domain.Locacao;
 import br.com.face2face.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +13,6 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
     public List<Locacao> findAllByOrderByIdDesc();
 
-    public Optional<List<Locacao>> findByUsuarioOrderByDataInicioReserva(Usuario usuario);
+    public Optional<List<Locacao>> findByUsuarioOrderByDataInicio(Usuario usuario);
 
 }

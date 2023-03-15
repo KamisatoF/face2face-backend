@@ -41,6 +41,8 @@ public class GenerateTestData {
     public void setUp() {
         clearData();
         insertUserData1();
+        insertUserData2();
+        insertUserData3();
     }
 
     private void insertUserData1() {
