@@ -26,6 +26,11 @@ public class Usuario implements Serializable {
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Servico> servicoList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
+    @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Locacao> locacaoList = new ArrayList<>();
     private String nome;
     private String cpf;
     private String email;

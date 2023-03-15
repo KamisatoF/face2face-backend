@@ -73,9 +73,9 @@ public class GenerateFakeData {
 
     private List<Usuario> createFakeUser() {
         List<Usuario> list = new ArrayList<>();
-        list.add(new Usuario(null, null, "Fabio Kamisato", "35346199519", "fabiokamisato@gmail.com", "11975792503", encoder.encode("Blue#99"), false, null));
-        list.add(new Usuario(null, null, "Thais Cavenago", "45283775860", "thaiscavenago@gmail.com", "14975792502", encoder.encode("Blue#00"), true, "on"));
-        list.add(new Usuario(null, null, "teste", "15283771860", "a@a", "14975792502", encoder.encode("a"), true, "on"));
+        list.add(new Usuario(null, null, null, "Fabio Kamisato", "35346199519", "fabiokamisato@gmail.com", "11975792503", encoder.encode("Blue#99"), false, null));
+        list.add(new Usuario(null, null, null, "Thais Cavenago", "45283775860", "thaiscavenago@gmail.com", "14975792502", encoder.encode("Blue#00"), true, "on"));
+        list.add(new Usuario(null, null, null, "teste", "15283771860", "a@a", "14975792502", encoder.encode("a"), true, "on"));
 
         return usuarioRepository.saveAll(list);
     }
