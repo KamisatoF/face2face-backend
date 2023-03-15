@@ -1,6 +1,7 @@
 package br.com.face2face.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,5 +41,9 @@ public class Locacao implements Serializable {
     private BigDecimal valorEspaco;
 
     private BigDecimal valorTotal;
+
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long userid;
 
 }

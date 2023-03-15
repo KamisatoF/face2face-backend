@@ -14,6 +14,6 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
     public List<Locacao> findAllByOrderByIdDesc();
 
-    public Optional<List<Locacao>> findByUsuario(Usuario usuario);
+    public Optional<List<Locacao>> findByUsuarioOrderByDataInicioReserva(Usuario usuario);
 
 }
