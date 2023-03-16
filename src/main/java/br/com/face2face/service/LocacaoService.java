@@ -6,6 +6,8 @@ import br.com.face2face.repository.LocacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -13,6 +15,21 @@ public class LocacaoService {
 
     @Autowired
     private LocacaoRepository repo;
+
+    public List<Locacao> find(Long id, Date dataInicio, Date dataFim) {
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        dataFim = getDateOnLastMillisecOfTheDay(dataFim);
+        return repo.findByUsuarioAndDataInicioBetween(usuario, dataInicio, dataFim).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+    }
+
+    private Date getDateOnLastMillisecOfTheDay(Date dataFim) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataFim);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+        return calendar.getTime();
+    }
 
     public List<Locacao> find(Long id) {
         Usuario usuario = new Usuario();

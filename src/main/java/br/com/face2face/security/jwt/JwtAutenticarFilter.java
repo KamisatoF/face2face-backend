@@ -18,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class JwtAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final int EXPIRATION_TIME = 1800000;
+    public static final long EXPIRATION_TIME = TimeUnit.HOURS.toMillis(12);
 
     public static final String KEY = "4d251558-022b-4905-af62-a08a8f752b65";
 
