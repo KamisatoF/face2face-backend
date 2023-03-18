@@ -1,9 +1,12 @@
 package br.com.face2face.service;
 
+import br.com.face2face.domain.Equipamento;
 import br.com.face2face.domain.Locacao;
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.repository.LocacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -16,11 +19,29 @@ public class LocacaoService {
     @Autowired
     private LocacaoRepository repo;
 
-    public List<Locacao> find(Long id, Date dataInicio, Date dataFim) {
+    public ServiceResponse find(Long id, Date dataInicio, Date dataFim) {
         Usuario usuario = new Usuario();
         usuario.setId(id);
         dataFim = getDateOnLastMillisecOfTheDay(dataFim);
-        return repo.findByUsuarioAndDataInicioBetween(usuario, dataInicio, dataFim).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+        ServiceResponse serviceResponse = validate(dataInicio, dataFim);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        List<Locacao> s = repo.findByUsuarioAndDataInicioBetween(usuario, dataInicio, dataFim).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", s);
+    }
+
+    private ServiceResponse validate(Date dataInicio, Date dataFim) {
+        if (dataInicio == null) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser preenchida", null);
+        } else if (dataFim == null) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser preenchida", null);
+        } else if (dataInicio.after(dataFim)) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser maior do que a data fim", null);
+        }
+
+        return null;
     }
 
     private Date getDateOnLastMillisecOfTheDay(Date dataFim) {

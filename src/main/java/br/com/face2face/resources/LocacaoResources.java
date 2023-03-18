@@ -1,9 +1,11 @@
 package br.com.face2face.resources;
 
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.service.LocacaoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,11 @@ public class LocacaoResources {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Long id, @RequestParam(value = "dataInicio") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataInicio, @RequestParam(value = "dataFim") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataFim) {
-        return ResponseEntity.ok().body(locacaoService.find(id, dataInicio, dataFim));
+        ServiceResponse resp =  locacaoService.find(id, dataInicio, dataFim);
+        if (!resp.getHttpStatus().equals(HttpStatus.OK))
+            return ResponseEntity.status(resp.getHttpStatus()).body(resp.getMessage());
+
+        return ResponseEntity.ok().body(resp.getObj());
     }
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)

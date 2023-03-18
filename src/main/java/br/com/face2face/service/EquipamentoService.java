@@ -1,9 +1,12 @@
 package br.com.face2face.service;
 
+import br.com.face2face.domain.ContaBancaria;
 import br.com.face2face.domain.Equipamento;
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.repository.EquipamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,20 +23,43 @@ public class EquipamentoService {
         return repo.findByUsuario(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
     }
 
-    public Equipamento insert(Equipamento equipamento) {
+    public ServiceResponse insert(Equipamento equipamento) {
         Usuario us = new Usuario();
         us.setId(equipamento.getUserid());
         equipamento.setUsuario(us);
         equipamento.setId(null);
-        return repo.save(equipamento);
+        ServiceResponse serviceResponse = validate(equipamento);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        Equipamento s = repo.save(equipamento);
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", s);
     }
 
-    public Equipamento update(Equipamento equipamento) {
+    public ServiceResponse update(Equipamento equipamento) {
         find(equipamento.getId());
         Usuario us = new Usuario();
         us.setId(equipamento.getUserid());
         equipamento.setUsuario(us);
-        return repo.save(equipamento);
+
+        ServiceResponse serviceResponse = validate(equipamento);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        Equipamento s = repo.save(equipamento);
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", s);
+    }
+
+    private ServiceResponse validate(Equipamento equipamento) {
+        if (equipamento.getDetalhes() == null || equipamento.getDetalhes().equals("")) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida", null);
+        } else if (equipamento.getDescricao() == null || equipamento.getDescricao().equals("")) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido", null);
+        }
+
+        return null;
     }
 
     public void delete(Long id) {

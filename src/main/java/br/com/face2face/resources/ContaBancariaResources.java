@@ -1,6 +1,7 @@
 package br.com.face2face.resources;
 
 import br.com.face2face.domain.ContaBancaria;
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.service.ContaBancariaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,19 @@ public class ContaBancariaResources {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> insert(@RequestBody ContaBancaria obj) {
-        obj = service.insert(obj);
+        ServiceResponse resp = service.insert(obj);
+        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getMessage());
 
-        return ResponseEntity.ok().build();
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody ContaBancaria obj, @PathVariable Long id) {
         obj.setId(id);
-        obj = service.update(obj);
-        return ResponseEntity.ok().build();
+        ServiceResponse resp = service.update(obj);
+        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getMessage());
+
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
