@@ -54,9 +54,9 @@ public class EquipamentoService {
 
     private ServiceResponse validate(Equipamento equipamento) {
         if (equipamento.getDetalhes() == null || equipamento.getDetalhes().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A detalhe deve ser preenchida", null);
         } else if (equipamento.getDescricao() == null || equipamento.getDescricao().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O descrição deve ser preenchido", null);
         }
 
         return null;
