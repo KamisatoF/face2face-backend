@@ -37,8 +37,7 @@ public class CadastroService {
                 usuario.getTelefone() == null || usuario.getTelefone().equals("") || usuario.getEmail() == null || usuario.getEmail().equals("") ||
                 usuario.getNome() == null || usuario.getNome().equals("")) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "Por favor, preencha todos os campos!", null);
-        }
-        if (usuario.getCpf().length() != 11) {
+        } else if (usuario.getCpf().length() != 11) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O CPF deve ter 11 digitos!", null);
         } else if (usuario.getTelefone().length() != 11) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O telefone deve ter 11 digitos (considerando o DDD)!", null);
