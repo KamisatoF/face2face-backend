@@ -40,7 +40,7 @@ public class ServicoService {
     private ServiceResponse validate(Servico servico) {
         if (servico.getDescricao() == null || servico.getDescricao().equals("")) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida", null);
-        } else if (servico.getDetalhes() == null || servico.getDescricao().equals("")) {
+        } else if (servico.getDetalhes() == null || servico.getDetalhes().equals("")) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido", null);
         } else if (servico.getPreco() == null) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O preço deve ser preenchido", null);
