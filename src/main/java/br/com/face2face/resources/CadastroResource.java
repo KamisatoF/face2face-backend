@@ -33,8 +33,10 @@ public class CadastroResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody Usuario obj, @PathVariable Long id) {
         obj.setId(id);
-        obj = cadastroService.update(obj);
-        return ResponseEntity.noContent().build();
+        ServiceResponse resp = cadastroService.update(obj);
+        ResponseEntity responseEntity = ResponseEntity.status(resp.getHttpStatus()).body(resp.getMessage());
+
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -54,14 +54,20 @@ public class CadastroService {
         usuario.setRecebeInformacoesEmail(usuario.getRecebeInformacoesEmailString() != null);
     }
 
-    public Usuario update(Usuario usuario) {
+    public ServiceResponse update(Usuario usuario) {
         Usuario db = find(usuario.getId());
         normalize(usuario);
         if (usuario.getSenha() == null) {
             usuario.setSenha(db.getSenha());
         }
 
-        return repo.save(usuario);
+        ServiceResponse serviceResponse = validate(usuario);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        Usuario resp = repo.save(usuario);
+        return new ServiceResponse(HttpStatus.OK, "Atualização realizada com sucesso!", resp);
     }
 
     public void delete(Long id) {

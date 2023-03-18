@@ -1,9 +1,11 @@
 package br.com.face2face.service;
 
+import br.com.face2face.domain.ServiceResponse;
 import br.com.face2face.domain.Servico;
 import br.com.face2face.domain.Usuario;
 import br.com.face2face.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,20 +22,46 @@ public class ServicoService {
         return repo.findByUsuario(usuario).orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
     }
 
-    public Servico insert(Servico servico) {
+    public ServiceResponse insert(Servico servico) {
         Usuario us = new Usuario();
         us.setId(servico.getUserid());
         servico.setUsuario(us);
         servico.setId(null);
-        return repo.save(servico);
+
+        ServiceResponse serviceResponse = validate(servico);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        Servico s = repo.save(servico);
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", s);
     }
 
-    public Servico update(Servico servico) {
+    private ServiceResponse validate(Servico servico) {
+        if (servico.getDescricao() == null || servico.getDescricao().equals("")) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida", null);
+        } else if (servico.getDetalhes() == null || servico.getDescricao().equals("")) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido", null);
+        } else if (servico.getPreco() == null) {
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O preço deve ser preenchido", null);
+        }
+
+        return null;
+    }
+
+    public ServiceResponse update(Servico servico) {
         find(servico.getId());
         Usuario us = new Usuario();
         us.setId(servico.getUserid());
         servico.setUsuario(us);
-        return repo.save(servico);
+
+        ServiceResponse serviceResponse = validate(servico);
+        if (serviceResponse != null) {
+            return serviceResponse;
+        }
+
+        Servico s = repo.save(servico);
+        return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", s);
     }
 
     public void delete(Long id) {
