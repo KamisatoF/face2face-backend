@@ -34,11 +34,11 @@ public class LocacaoService {
 
     private ServiceResponse validate(Date dataInicio, Date dataFim) {
         if (dataInicio == null) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser preenchida", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data início deve ser preenchida.", null);
         } else if (dataFim == null) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser preenchida", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data fim deve ser preenchida.", null);
         } else if (dataInicio.after(dataFim)) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data inicio deve ser maior do que a data fim", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A data início deve ser maior ou igual a data fim.", null);
         }
 
         return null;

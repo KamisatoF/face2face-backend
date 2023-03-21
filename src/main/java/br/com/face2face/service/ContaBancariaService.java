@@ -55,13 +55,13 @@ public class ContaBancariaService {
 
     private ServiceResponse validate(ContaBancaria contaBancaria) {
         if (contaBancaria.getBanco() == null || contaBancaria.getBanco().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A descrição deve ser preenchida.", null);
         } else if (contaBancaria.getAgencia() == null || contaBancaria.getAgencia().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O detalhe deve ser preenchido.", null);
         } else if (contaBancaria.getCc() == null || contaBancaria.getCc().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O preço deve ser preenchido", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "A conta corrente deve ser preenchida.", null);
         } else if (contaBancaria.getDigito() == null || contaBancaria.getDigito().equals("")) {
-            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O preço deve ser preenchido", null);
+            return new ServiceResponse(HttpStatus.BAD_REQUEST, "O dígito deve ser preenchido.", null);
         }
 
         return null;
