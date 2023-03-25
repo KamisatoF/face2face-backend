@@ -23,7 +23,7 @@ public class CadastroService {
 
     public ServiceResponse insert(Usuario usuario) {
         normalize(usuario);
-        ServiceResponse serviceResponse = validate(usuario);
+        ServiceResponse serviceResponse = validate(usuario, true);
         if (serviceResponse != null) {
             return serviceResponse;
         }
@@ -32,7 +32,7 @@ public class CadastroService {
         return new ServiceResponse(HttpStatus.OK, "Cadastro realizado com sucesso!", resp);
     }
 
-    private ServiceResponse validate(Usuario usuario) {
+    private ServiceResponse validate(Usuario usuario, boolean isNewUser) {
         if (usuario.getCpf() == null || usuario.getCpf().equals("") ||
                 usuario.getTelefone() == null || usuario.getTelefone().equals("") || usuario.getEmail() == null || usuario.getEmail().equals("") ||
                 usuario.getNome() == null || usuario.getNome().equals("")) {
@@ -43,9 +43,9 @@ public class CadastroService {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O telefone deve ter 11 digitos (considerando o DDD)!", null);
         } else if (!usuario.getEmail().contains("@")) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "O email deve conter um @!", null);
-        } else if (repo.findByEmail(usuario.getEmail()).isPresent()) {
+        } else if (repo.findByEmail(usuario.getEmail()).isPresent() && isNewUser) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "Email já cadastrado!", null);
-        } else if (repo.findByCpf(usuario.getCpf()).isPresent()) {
+        } else if (repo.findByCpf(usuario.getCpf()).isPresent() && isNewUser) {
             return new ServiceResponse(HttpStatus.BAD_REQUEST, "CPF já cadastrado!", null);
         }
         return null;
@@ -65,7 +65,7 @@ public class CadastroService {
             usuario.setSenha(db.getSenha());
         }
 
-        ServiceResponse serviceResponse = validate(usuario);
+        ServiceResponse serviceResponse = validate(usuario, false);
         if (serviceResponse != null) {
             return serviceResponse;
         }
