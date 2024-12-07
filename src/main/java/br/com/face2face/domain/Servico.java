@@ -8,9 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 @Entity
 @Table(name = "servico")
@@ -31,4 +29,5 @@ public class Servico implements Serializable {
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long userid;
+
 }
